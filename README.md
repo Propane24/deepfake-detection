@@ -1,127 +1,103 @@
-#  Deepfake Detection Extension  
-### Real-time authenticity detection for the modern web
+#  DeepShield – Real-Time Deepfake Detection Extension
 
-> A browser-native system that detects AI-generated media **while you browse** — no uploads, no manual checks, just instant trust signals.
+> A browser-native AI system that detects deepfake images directly while browsing the web.
 
----
-
-##  Why this exists
-
-Generative AI can now produce hyper-realistic fake media.  
-But users still rely on manual tools to verify authenticity.
-
-This project introduces a **real-time authenticity layer** directly inside the browser.
-
-While scrolling through social media, news, or videos:
-- images are analyzed instantly  
-- authenticity scores are computed  
-- trust indicators appear on screen  
-
-All without interrupting the user experience.
+DeepShield integrates a custom-trained deep learning model with a Chrome extension to automatically analyze images on any webpage and detect AI-generated content in real time.
 
 ---
 
-##  What it does
+##  The Problem
 
-- Detects deepfake images directly in webpages  
-- Extracts frames from videos for analysis  
-- Runs forensic AI models in real time  
-- Generates probabilistic authenticity scores  
-- Overlays trust badges on media  
-- Works while browsing normally  
+Generative AI models can now create hyper-realistic fake images that are almost indistinguishable from real photographs.
 
-No uploads.  
-No external tools.  
-No friction.
+However:
+
+- Most detection tools require manual uploads  
+- No built-in browser authenticity layer exists  
+- Users cannot verify images while scrolling social media  
+- Fake media spreads faster than verification  
+
+DeepShield solves this by bringing detection directly into the browser.
 
 ---
 
-##  Architecture Overview
+##  The Solution
+
+DeepShield combines:
+
+-  Chrome Extension (Manifest V3)
+-  FastAPI Inference Server
+-  Custom CNN Model (trained from scratch)
+-  Frequency-Domain Artifact Detection
+-  Real-Time Image Interception
+
+Instead of uploading images manually, the system:
 
 ```
-        ┌─────────────────────────┐
-        │   Browser Extension     │
-        │                         │
-        │  Detects images/videos  │
-        └──────────┬──────────────┘
-                   │
-                   ▼
-        ┌─────────────────────────┐
-        │   Frame/Image Capture   │
-        │   (Canvas API)          │
-        └──────────┬──────────────┘
-                   │
-                   ▼
-        ┌─────────────────────────┐
-        │   Backend API (FastAPI) │
-        │                         │
-        │  Deepfake model         │
-        │  Frequency analysis     │
-        │  Metadata checks        │
-        └──────────┬──────────────┘
-                   │
-                   ▼
-        ┌─────────────────────────┐
-        │ Authenticity Score      │
-        └──────────┬──────────────┘
-                   │
-                   ▼
-        ┌─────────────────────────┐
-        │ Overlay on Webpage      │
-        └─────────────────────────┘
+Webpage → Extension → Backend → Model → Authenticity Score → Overlay
+```
+
+All in real time.
+
+---
+
+##  Architecture
+
+```
+┌─────────────────────────────┐
+│        Web Browser          │
+│  (Social Media / News etc.) │
+└──────────────┬──────────────┘
+               │
+               ▼
+┌─────────────────────────────┐
+│    Chrome Extension         │
+│  - Detects <img> elements   │
+│  - Captures image data      │
+└──────────────┬──────────────┘
+               │
+               ▼
+┌─────────────────────────────┐
+│      FastAPI Backend        │
+│  - Receives image           │
+│  - Preprocesses             │
+└──────────────┬──────────────┘
+               │
+               ▼
+┌─────────────────────────────┐
+│   Deep Learning Model       │
+│  - CNN Spatial Analysis     │
+│  - Frequency Domain Features│
+│  - Binary Classification    │
+└──────────────┬──────────────┘
+               │
+               ▼
+      Authenticity Score
 ```
 
 ---
 
-##  Core Features
+##  Key Features
 
-###  Browser-Native Detection
-Detects deepfakes directly inside webpages using a Chrome extension.
+###  Custom Model Trained From Scratch
+- Built using PyTorch
+- CNN-based architecture
+- Binary classifier (Real vs Fake)
+- Designed for fast inference
 
-###  Multi-Signal AI Analysis
-Instead of relying on one model, the system combines:
-- CNN deepfake classifier  
-- frequency-domain artifact detection  
-- metadata consistency checks  
+###  Multi-Signal Detection
+The model analyzes:
+- Spatial pixel patterns
+- Frequency-domain artifacts (FFT)
+- Learned fake-generation inconsistencies
 
-###  Probabilistic Trust Score
-Each image/video receives a confidence score:
+###  Real-Time Browser Detection
+- Automatically scans `<img>` elements
+- Sends images to backend
+- Displays authenticity results
 
-```
-REAL   ←──── 0.0 — 1.0 ────→   FAKE
-```
-
-###  Video Frame Analysis
-Extracts frames periodically and checks temporal consistency.
-
-###  Real-Time Overlay UI
-Badges appear directly on media:
--  Fake  
--  Likely Real  
--  Suspicious  
-
----
-
-##  Tech Stack
-
-### Extension
-- Chrome Extension (Manifest v3)
-- JavaScript
-- HTML/CSS
-- Canvas API
-- MutationObserver
-
-### Backend
-- Python
-- FastAPI
-- PyTorch
-- OpenCV
-- REST API
-
-### AI Detection
-- CNN deepfake classifier  
-- frequency-domain artifact detection  
-- multi-signal scoring engine  
+###  Mixed Image Testing Page
+Includes a local testing page with 10 mixed (real + AI) images for demo purposes.
 
 ---
 
@@ -130,133 +106,141 @@ Badges appear directly on media:
 ```
 deepfake-detection/
 │
-├── extension/
-│   ├── manifest.json
-│   ├── content.js
-│   ├── overlay.js
-│   └── styles.css
-│
-├── backend/
-│   ├── main.py
+├── cnn_file/                # ML model code
 │   ├── model.py
-│   ├── scoring.py
-│   └── requirements.txt
+│   ├── train.py
+│   ├── dataset.py
+│   ├── frequency.py
+│   └── main.py
 │
-├── assets/
-│   ├── demo.gif
-│   └── screenshots/
+├── testing/                 # Mixed image demo page
+│   ├── index.html
+│   └── images/
+│        ├── img1.jpg
+│        ├── img2.jpg
+│        └── ... up to img10.jpg
+│
+├── extension/               # Chrome extension
 │
 └── README.md
 ```
 
 ---
 
-##  Local Setup
+##  Installation & Setup
 
-### Clone repo
+### 1️. Clone Repository
+
 ```bash
-git clone https://github.com/YOUR_USERNAME/deepfake-detection.git
+git clone https://github.com/Propane24/deepfake-detection.git
 cd deepfake-detection
 ```
 
-### Start backend
+---
+
+### 2️. Install Dependencies
+
 ```bash
-cd backend
-pip install -r requirements.txt
-uvicorn main:app --reload
+pip install fastapi uvicorn torch torchvision opencv-python pillow
 ```
-
-Backend runs at:
-```
-http://localhost:8000
-```
-
-### Load extension
-1. Open Chrome  
-2. Go to `chrome://extensions`  
-3. Enable Developer Mode  
-4. Click **Load unpacked**  
-5. Select `extension/` folder  
 
 ---
 
-##  Example API Response
+### 3️. Start Backend
+
+```bash
+uvicorn main:app --reload
+```
+
+Server runs at:
+
+```
+http://127.0.0.1:8000
+```
+
+---
+
+### 4️. Load Chrome Extension
+
+1. Open `chrome://extensions`
+2. Enable **Developer Mode**
+3. Click **Load Unpacked**
+4. Select the extension folder
+
+---
+
+### 5️. Test with Mixed Image Page
+
+Open:
+
+```
+testing/index.html
+```
+
+The extension will automatically detect and analyze all 10 images.
+
+---
+
+##  API Endpoint
+
+### POST `/analyze`
+
+Returns:
 
 ```json
 {
-  "fake_probability": 0.78,
-  "confidence": 0.91,
-  "label": "FAKE"
+  "fake_probability": 0.82,
+  "label": "FAKE",
+  "confidence": 0.64
 }
 ```
 
 ---
 
-##  Use Cases
+##  Hackathon Value Proposition
 
-- Detect AI-generated misinformation  
-- Journalist verification tools  
-- Social media authenticity checks  
-- Fraud & impersonation prevention  
-- Digital forensics  
+DeepShield shifts deepfake detection from:
 
----
+> Manual Upload Verification  
+> to  
+> Ambient Real-Time Detection
 
-##  Scoring Strategy
-
-Final authenticity score is computed using multiple signals:
-
-```
-Final Score =
-0.6 × CNN prediction +
-0.3 × frequency artifacts +
-0.1 × metadata checks
-```
-
-This improves reliability compared to single-model detection.
+It acts as a browser-level authenticity layer.
 
 ---
 
-##  Future Roadmap
+##  Scalability & Future Roadmap
 
-- On-device lightweight inference  
+- Video frame temporal detection  
+- ONNX model optimization  
 - Edge deployment  
-- Blockchain authenticity verification  
-- Temporal video analysis  
-- Cross-browser support  
+- On-device lightweight model  
+- Blockchain authenticity registry  
 - Social media API integration  
 
 ---
 
-##  Built For
+##  Use Cases
 
-- Hackathons  
-- AI safety research  
-- Browser security tools  
-- Real-time media verification  
+- Social media verification  
+- Journalism authenticity tools  
+- Fraud prevention  
+- Misinformation control  
+- Digital forensics  
 
 ---
 
 ##  Team
 
-**Team RDR2**
+Built collaboratively with contributions in:
 
-- Extension Development  
-- ML Model  
-- Backend & Integration  
-
----
-
-##  Key Innovation
-
-Most deepfake tools require manual uploads.  
-This system moves detection **into the browsing layer**.
-
-Verification becomes ambient.  
-Always running.  
-Always visible.
+- ML Model Development  
+- Backend API  
+- Chrome Extension  
+- UI Testing  
 
 ---
 
 ##  License
+
 MIT License
