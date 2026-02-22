@@ -1,0 +1,10 @@
+from safetensors.torch import load_file
+
+weights = load_file("model.safetensors")
+
+print(type(weights))
+print(len(weights))
+print(list(weights.keys())[:20])
+
+for k, v in weights.items():
+    print(k, v.shape)
