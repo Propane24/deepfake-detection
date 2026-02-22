@@ -1,182 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Deepfake Detection Live Demo</title>
+    <title>Image Test Page</title>
 
-<style>
-body{
-    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-    font-family: 'Segoe UI', sans-serif;
-    color:white;
-    margin:0;
-    text-align:center;
-}
+    <style>
+        body{
+            background:#111;
+            margin:0;
+            padding:20px;
+            font-family:Arial;
+            color:white;
+        }
 
-h1{
-    padding-top:20px;
-    font-size:34px;
-}
+        .grid{
+            display:grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap:20px;
+        }
 
-.scanCounter{
-    margin-top:10px;
-    font-size:18px;
-    opacity:0.9;
-}
-
-.gallery{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:25px;
-    margin:40px;
-}
-
-.card{
-    position:relative;
-    width:240px;
-    border-radius:15px;
-    overflow:hidden;
-    background:#111;
-    box-shadow:0 0 20px rgba(0,0,0,0.6);
-    transition:0.3s;
-}
-
-.card:hover{
-    transform:scale(1.05);
-}
-
-img{
-    width:100%;
-    display:block;
-}
-
-.overlay{
-    position:absolute;
-    bottom:0;
-    width:100%;
-    background:rgba(0,0,0,0.85);
-    padding:10px;
-}
-
-.label{
-    font-weight:bold;
-}
-
-.bar{
-    height:6px;
-    border-radius:5px;
-    margin-top:6px;
-    background:#333;
-    overflow:hidden;
-}
-
-.fill{
-    height:100%;
-    width:0%;
-    transition:1s;
-}
-
-.fake{
-    box-shadow:0 0 18px red;
-}
-
-.real{
-    box-shadow:0 0 18px #00ff88;
-}
-
-button{
-    padding:12px 25px;
-    font-size:16px;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    background:#00c3ff;
-    color:white;
-    margin-top:20px;
-}
-</style>
+        img{
+            width:100%;
+            height:auto;
+            border-radius:8px;
+        }
+    </style>
 </head>
 
 <body>
 
-<h1>Real-Time Deepfake Detection</h1>
-<div class="scanCounter" id="counter">Scanned: 0</div>
+<h2>Image Feed</h2>
 
-<button onclick="scanAll()"> Scan All Images</button>
+<div class="grid">
 
-<div class="gallery">
+    <img src="images/Img1.jpg">
+    <img src="images/Img2.jpg">
+    <img src="images/Img3.jpg">
+    <img src="images/Img4.jpg">
+    <img src="images/Img5.jpg">
 
-<!-- 11 IMAGE CARDS -->
-<script>
-for(let i=1;i<=11;i++){
-    document.write(`
-    <div class="card">
-        <img src="images/img${i}.jpg">
-        <div class="overlay">
-            <div class="label">Waiting...</div>
-            <div class="bar"><div class="fill"></div></div>
-        </div>
-    </div>
-    `);
-}
-</script>
+    <img src="images/Img6.jpg">
+    <img src="images/Img7.jpg">
+    <img src="images/Img8.jpg">
+    <img src="images/Img9.jpg">
+    <img src="images/Img10.jpg">
+    <img src="images/Img11.jpg">
 
 </div>
-
-<script>
-
-let scanned = 0;
-
-async function analyze(card){
-
-    const img = card.querySelector("img");
-    const label = card.querySelector(".label");
-    const fill = card.querySelector(".fill");
-
-    label.innerText = "Analyzing...";
-
-    const response = await fetch(img.src);
-    const blob = await response.blob();
-
-    const formData = new FormData();
-    formData.append("file", blob);
-
-    const res = await fetch("http://127.0.0.1:8000/analyze",{
-        method:"POST",
-        body:formData
-    });
-
-    const data = await res.json();
-
-    const percent = Math.round(data.fake_probability * 100);
-    fill.style.width = percent + "%";
-
-    if(data.label==="FAKE"){
-        fill.style.background="red";
-        label.innerText=" FAKE ("+percent+"%)";
-        card.classList.add("fake");
-    }else{
-        fill.style.background="#00ff88";
-        label.innerText=" REAL ("+percent+"%)";
-        card.classList.add("real");
-    }
-
-    scanned++;
-    document.getElementById("counter").innerText = "Scanned: " + scanned;
-}
-
-function scanAll(){
-    scanned = 0;
-    document.getElementById("counter").innerText = "Scanned: 0";
-
-    const cards = document.querySelectorAll(".card");
-
-    cards.forEach(card=>{
-        analyze(card);
-    });
-}
-
-</script>
 
 </body>
 </html>
