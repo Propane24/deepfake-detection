@@ -91,7 +91,7 @@ Each image/video receives a confidence score:
 REAL   ←──── 0.0 — 1.0 ────→   FAKE
 ```
 
-### 🎥 Video Frame Analysis
+###  Video Frame Analysis
 Extracts frames periodically and checks temporal consistency.
 
 ###  Real-Time Overlay UI
