@@ -1,5 +1,0 @@
-import torch
-
-opt = torch.load("optimizer.pt", map_location="cpu")
-print(type(opt))
-print(opt.keys())
