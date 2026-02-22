@@ -14,13 +14,13 @@ body{
 
 h1{
     padding-top:20px;
-    font-size:32px;
+    font-size:34px;
 }
 
 .scanCounter{
     margin-top:10px;
     font-size:18px;
-    opacity:0.8;
+    opacity:0.9;
 }
 
 .gallery{
@@ -33,7 +33,7 @@ h1{
 
 .card{
     position:relative;
-    width:260px;
+    width:240px;
     border-radius:15px;
     overflow:hidden;
     background:#111;
@@ -42,7 +42,7 @@ h1{
 }
 
 .card:hover{
-    transform:scale(1.03);
+    transform:scale(1.05);
 }
 
 img{
@@ -54,7 +54,7 @@ img{
     position:absolute;
     bottom:0;
     width:100%;
-    background:rgba(0,0,0,0.8);
+    background:rgba(0,0,0,0.85);
     padding:10px;
 }
 
@@ -77,11 +77,11 @@ img{
 }
 
 .fake{
-    box-shadow:0 0 15px red;
+    box-shadow:0 0 18px red;
 }
 
 .real{
-    box-shadow:0 0 15px #00ff88;
+    box-shadow:0 0 18px #00ff88;
 }
 
 button{
@@ -92,58 +92,34 @@ button{
     cursor:pointer;
     background:#00c3ff;
     color:white;
+    margin-top:20px;
 }
 </style>
 </head>
 
 <body>
 
-<h1> Real-Time Deepfake Detection</h1>
+<h1>Real-Time Deepfake Detection</h1>
 <div class="scanCounter" id="counter">Scanned: 0</div>
 
 <button onclick="scanAll()"> Scan All Images</button>
 
 <div class="gallery">
 
-<div class="card">
-    <img src="images/Img1.jpg">
-    <div class="overlay">
-        <div class="label">Waiting...</div>
-        <div class="bar"><div class="fill"></div></div>
+<!-- 11 IMAGE CARDS -->
+<script>
+for(let i=1;i<=11;i++){
+    document.write(`
+    <div class="card">
+        <img src="images/img${i}.jpg">
+        <div class="overlay">
+            <div class="label">Waiting...</div>
+            <div class="bar"><div class="fill"></div></div>
+        </div>
     </div>
-</div>
-
-<div class="card">
-    <img src="images/Img2.jpg">
-    <div class="overlay">
-        <div class="label">Waiting...</div>
-        <div class="bar"><div class="fill"></div></div>
-    </div>
-</div>
-
-<div class="card">
-    <img src="images/Img3.jpg">
-    <div class="overlay">
-        <div class="label">Waiting...</div>
-        <div class="bar"><div class="fill"></div></div>
-    </div>
-</div>
-
-<div class="card">
-    <img src="images/Img4.jpg">
-    <div class="overlay">
-        <div class="label">Waiting...</div>
-        <div class="bar"><div class="fill"></div></div>
-    </div>
-</div>
-
-<div class="card">
-    <img src="images/Img5.jpg">
-    <div class="overlay">
-        <div class="label">Waiting...</div>
-        <div class="bar"><div class="fill"></div></div>
-    </div>
-</div>
+    `);
+}
+</script>
 
 </div>
 
@@ -158,7 +134,7 @@ async function analyze(card){
     const fill = card.querySelector(".fill");
 
     label.innerText = "Analyzing...";
-    
+
     const response = await fetch(img.src);
     const blob = await response.blob();
 
@@ -173,16 +149,15 @@ async function analyze(card){
     const data = await res.json();
 
     const percent = Math.round(data.fake_probability * 100);
-
     fill.style.width = percent + "%";
 
     if(data.label==="FAKE"){
         fill.style.background="red";
-        label.innerText="FAKE ("+percent+"%)";
+        label.innerText=" FAKE ("+percent+"%)";
         card.classList.add("fake");
     }else{
         fill.style.background="#00ff88";
-        label.innerText="REAL ("+percent+"%)";
+        label.innerText=" REAL ("+percent+"%)";
         card.classList.add("real");
     }
 
@@ -193,8 +168,12 @@ async function analyze(card){
 function scanAll(){
     scanned = 0;
     document.getElementById("counter").innerText = "Scanned: 0";
+
     const cards = document.querySelectorAll(".card");
-    cards.forEach(card => analyze(card));
+
+    cards.forEach(card=>{
+        analyze(card);
+    });
 }
 
 </script>
