@@ -1,0 +1,10 @@
+ml_model/
+│
+├── train.py
+├── model.py
+├── dataset.py
+├── frequency.py
+├── inference.py
+├── scoring.py
+├── main.py
+└── weights/
