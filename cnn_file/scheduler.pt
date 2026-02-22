@@ -1,0 +1,4 @@
+import torch
+sched = torch.load("scheduler.pt", map_location="cpu")
+print(type(sched))
+print(sched.keys())
