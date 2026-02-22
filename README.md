@@ -1,11 +1,11 @@
-# 🛡️ Deepfake Detection Extension  
+#  Deepfake Detection Extension  
 ### Real-time authenticity detection for the modern web
 
 > A browser-native system that detects AI-generated media **while you browse** — no uploads, no manual checks, just instant trust signals.
 
 ---
 
-## 🚀 Why this exists
+##  Why this exists
 
 Generative AI can now produce hyper-realistic fake media.  
 But users still rely on manual tools to verify authenticity.
@@ -21,7 +21,7 @@ All without interrupting the user experience.
 
 ---
 
-## 🧠 What it does
+##  What it does
 
 - Detects deepfake images directly in webpages  
 - Extracts frames from videos for analysis  
@@ -36,7 +36,7 @@ No friction.
 
 ---
 
-## 🏗️ Architecture Overview
+##  Architecture Overview
 
 ```
         ┌─────────────────────────┐
@@ -73,18 +73,18 @@ No friction.
 
 ---
 
-## ⚡ Core Features
+##  Core Features
 
-### 🧩 Browser-Native Detection
+###  Browser-Native Detection
 Detects deepfakes directly inside webpages using a Chrome extension.
 
-### 🧠 Multi-Signal AI Analysis
+###  Multi-Signal AI Analysis
 Instead of relying on one model, the system combines:
 - CNN deepfake classifier  
 - frequency-domain artifact detection  
 - metadata consistency checks  
 
-### 🎯 Probabilistic Trust Score
+###  Probabilistic Trust Score
 Each image/video receives a confidence score:
 
 ```
@@ -94,15 +94,15 @@ REAL   ←──── 0.0 — 1.0 ────→   FAKE
 ### 🎥 Video Frame Analysis
 Extracts frames periodically and checks temporal consistency.
 
-### 🟢 Real-Time Overlay UI
+###  Real-Time Overlay UI
 Badges appear directly on media:
-- 🔴 Fake  
-- 🟢 Likely Real  
-- 🟡 Suspicious  
+-  Fake  
+-  Likely Real  
+-  Suspicious  
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### Extension
 - Chrome Extension (Manifest v3)
@@ -125,7 +125,7 @@ Badges appear directly on media:
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 deepfake-detection/
@@ -151,7 +151,7 @@ deepfake-detection/
 
 ---
 
-## ⚙️ Local Setup
+##  Local Setup
 
 ### Clone repo
 ```bash
@@ -180,7 +180,7 @@ http://localhost:8000
 
 ---
 
-## 🧪 Example API Response
+##  Example API Response
 
 ```json
 {
@@ -192,7 +192,7 @@ http://localhost:8000
 
 ---
 
-## 🎯 Use Cases
+##  Use Cases
 
 - Detect AI-generated misinformation  
 - Journalist verification tools  
@@ -202,7 +202,7 @@ http://localhost:8000
 
 ---
 
-## 📊 Scoring Strategy
+##  Scoring Strategy
 
 Final authenticity score is computed using multiple signals:
 
@@ -217,7 +217,7 @@ This improves reliability compared to single-model detection.
 
 ---
 
-## 🔮 Future Roadmap
+##  Future Roadmap
 
 - On-device lightweight inference  
 - Edge deployment  
@@ -228,7 +228,7 @@ This improves reliability compared to single-model detection.
 
 ---
 
-## 🏆 Built For
+##  Built For
 
 - Hackathons  
 - AI safety research  
@@ -237,7 +237,7 @@ This improves reliability compared to single-model detection.
 
 ---
 
-## 👥 Team
+##  Team
 
 **Team RDR2**
 
@@ -247,7 +247,7 @@ This improves reliability compared to single-model detection.
 
 ---
 
-## 💡 Key Innovation
+##  Key Innovation
 
 Most deepfake tools require manual uploads.  
 This system moves detection **into the browsing layer**.
@@ -258,5 +258,5 @@ Always visible.
 
 ---
 
-## 📜 License
+##  License
 MIT License
