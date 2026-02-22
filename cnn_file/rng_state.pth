@@ -1,4 +1,0 @@
-import torch
-rng = torch.load("rng_state.pth", map_location="cpu")
-print(type(rng))
-print(rng.keys())
