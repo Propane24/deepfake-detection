@@ -1,44 +1,44 @@
-🛡️ Deepfake Detection Extension
-Real-time authenticity detection for the modern web
+# 🛡️ Deepfake Detection Extension  
+### Real-time authenticity detection for the modern web
 
-A browser-native system that detects AI-generated media while you browse — no uploads, no manual checks, just instant trust signals.
+> A browser-native system that detects AI-generated media **while you browse** — no uploads, no manual checks, just instant trust signals.
 
-🚀 Why this exists
+---
 
-Generative AI can now produce hyper-realistic fake media.
+## 🚀 Why this exists
+
+Generative AI can now produce hyper-realistic fake media.  
 But users still rely on manual tools to verify authenticity.
 
-This project introduces a real-time authenticity layer directly inside the browser.
+This project introduces a **real-time authenticity layer** directly inside the browser.
 
 While scrolling through social media, news, or videos:
-
-images are analyzed instantly
-
-authenticity scores are computed
-
-trust indicators appear on screen
+- images are analyzed instantly  
+- authenticity scores are computed  
+- trust indicators appear on screen  
 
 All without interrupting the user experience.
 
-🧠 What it does
+---
 
-Detects deepfake images directly in webpages
+## 🧠 What it does
 
-Extracts frames from videos for analysis
+- Detects deepfake images directly in webpages  
+- Extracts frames from videos for analysis  
+- Runs forensic AI models in real time  
+- Generates probabilistic authenticity scores  
+- Overlays trust badges on media  
+- Works while browsing normally  
 
-Runs forensic AI models in real time
-
-Generates probabilistic authenticity scores
-
-Overlays trust badges on media
-
-Works while browsing normally
-
-No uploads.
-No external tools.
+No uploads.  
+No external tools.  
 No friction.
 
-🏗️ Architecture Overview
+---
+
+## 🏗️ Architecture Overview
+
+```
         ┌─────────────────────────┐
         │   Browser Extension     │
         │                         │
@@ -69,74 +69,65 @@ No friction.
         ┌─────────────────────────┐
         │ Overlay on Webpage      │
         └─────────────────────────┘
-⚡ Core Features
-🧩 Browser-Native Detection
+```
 
+---
+
+## ⚡ Core Features
+
+### 🧩 Browser-Native Detection
 Detects deepfakes directly inside webpages using a Chrome extension.
 
-🧠 Multi-Signal AI Analysis
-
+### 🧠 Multi-Signal AI Analysis
 Instead of relying on one model, the system combines:
+- CNN deepfake classifier  
+- frequency-domain artifact detection  
+- metadata consistency checks  
 
-CNN deepfake classifier
-
-frequency-domain artifact detection
-
-metadata consistency checks
-
-🎯 Probabilistic Trust Score
-
+### 🎯 Probabilistic Trust Score
 Each image/video receives a confidence score:
 
+```
 REAL   ←──── 0.0 — 1.0 ────→   FAKE
-🎥 Video Frame Analysis
+```
 
+### 🎥 Video Frame Analysis
 Extracts frames periodically and checks temporal consistency.
 
-🟢 Real-Time Overlay UI
-
+### 🟢 Real-Time Overlay UI
 Badges appear directly on media:
+- 🔴 Fake  
+- 🟢 Likely Real  
+- 🟡 Suspicious  
 
-🔴 Fake
+---
 
-🟢 Likely Real
+## 🛠️ Tech Stack
 
-🟡 Suspicious
+### Extension
+- Chrome Extension (Manifest v3)
+- JavaScript
+- HTML/CSS
+- Canvas API
+- MutationObserver
 
-🛠️ Tech Stack
-Extension
+### Backend
+- Python
+- FastAPI
+- PyTorch
+- OpenCV
+- REST API
 
-Chrome Extension (Manifest v3)
+### AI Detection
+- CNN deepfake classifier  
+- frequency-domain artifact detection  
+- multi-signal scoring engine  
 
-JavaScript
+---
 
-HTML/CSS
+## 📂 Project Structure
 
-Canvas API
-
-MutationObserver
-
-Backend
-
-Python
-
-FastAPI
-
-PyTorch
-
-OpenCV
-
-REST API
-
-AI Detection
-
-CNN deepfake classifier
-
-frequency-domain artifact detection
-
-multi-signal scoring engine
-
-📂 Project Structure
+```
 deepfake-detection/
 │
 ├── extension/
@@ -156,102 +147,116 @@ deepfake-detection/
 │   └── screenshots/
 │
 └── README.md
-⚙️ Local Setup
-Clone repo
+```
+
+---
+
+## ⚙️ Local Setup
+
+### Clone repo
+```bash
 git clone https://github.com/YOUR_USERNAME/deepfake-detection.git
 cd deepfake-detection
-Start backend
+```
+
+### Start backend
+```bash
 cd backend
 pip install -r requirements.txt
 uvicorn main:app --reload
+```
 
 Backend runs at:
-
+```
 http://localhost:8000
-Load extension
+```
 
-Open Chrome
+### Load extension
+1. Open Chrome  
+2. Go to `chrome://extensions`  
+3. Enable Developer Mode  
+4. Click **Load unpacked**  
+5. Select `extension/` folder  
 
-Go to chrome://extensions
+---
 
-Enable Developer Mode
+## 🧪 Example API Response
 
-Click Load unpacked
-
-Select extension/ folder
-
-🧪 Example API Response
+```json
 {
   "fake_probability": 0.78,
   "confidence": 0.91,
   "label": "FAKE"
 }
-🎯 Use Cases
+```
 
-Detect AI-generated misinformation
+---
 
-Journalist verification tools
+## 🎯 Use Cases
 
-Social media authenticity checks
+- Detect AI-generated misinformation  
+- Journalist verification tools  
+- Social media authenticity checks  
+- Fraud & impersonation prevention  
+- Digital forensics  
 
-Fraud & impersonation prevention
+---
 
-Digital forensics
-
-📊 Scoring Strategy
+## 📊 Scoring Strategy
 
 Final authenticity score is computed using multiple signals:
 
+```
 Final Score =
 0.6 × CNN prediction +
 0.3 × frequency artifacts +
 0.1 × metadata checks
+```
 
 This improves reliability compared to single-model detection.
 
-🔮 Future Roadmap
+---
 
-On-device lightweight inference
+## 🔮 Future Roadmap
 
-Edge deployment
+- On-device lightweight inference  
+- Edge deployment  
+- Blockchain authenticity verification  
+- Temporal video analysis  
+- Cross-browser support  
+- Social media API integration  
 
-Blockchain authenticity verification
+---
 
-Temporal video analysis
+## 🏆 Built For
 
-Cross-browser support
+- Hackathons  
+- AI safety research  
+- Browser security tools  
+- Real-time media verification  
 
-Social media API integration
+---
 
-🏆 Built For
+## 👥 Team
 
-Hackathons
+**Team RDR2**
 
-AI safety research
+- Extension Development  
+- ML Model  
+- Backend & Integration  
 
-Browser security tools
+---
 
-Real-time media verification
+## 💡 Key Innovation
 
-👥 Team
+Most deepfake tools require manual uploads.  
+This system moves detection **into the browsing layer**.
 
-Team RDR2
-
-Extension Development
-
-ML Model
-
-Backend & Integration
-
-💡 Key Innovation
-
-Most deepfake tools require manual uploads.
-This system moves detection into the browsing layer.
-
-Verification becomes ambient.
-Always running.
+Verification becomes ambient.  
+Always running.  
 Always visible.
 
-📜 License
+---
 
+## 📜 License
 MIT License
